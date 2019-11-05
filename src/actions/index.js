@@ -9,14 +9,14 @@ export const fetchPosts= ()=> async (dispatch)=>{
 
 // export const fetchUser = id => async dispatch=>{
 // 	const response = await jsonPlaceholder.get(`/users/${id}`);
-
+ 
 // 	dispatch({type: 'FETCH_USER', payload:response.data});
 // };
-
-export const fetchUser = _.memoize(function(id){
-	return async function(dispatch){
+//does not solve the multiple request issue because it is created every time we call the function
+export const fetchUser = function(id){
+	return _.memoize(async function(dispatch){
 		const response = await jsonPlaceholder.get(`/users/${id}`);
 
 		dispatch({type:'FETCH_USER', payload: response.data});
-	};
-});
+	});
+};
